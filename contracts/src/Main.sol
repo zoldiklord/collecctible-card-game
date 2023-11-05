@@ -1,17 +1,30 @@
-// SPDX-License-Identifier: MIT
+//SPDX-License-Identifier: MIT
 pragma solidity ^0.8;
 
 import "./Collection.sol";
 
 contract Main {
-  int private count;
-  mapping(int => Collection) private collections;
 
-  constructor() {
-    count = 0;
+  struct Collection {
+    string name; 
+    uint256 cardCount;
+    address collectionAddress;
   }
 
-  function createCollection(string calldata name, int cardCount) external {
-    collections[count++] = new Collection(name, cardCount);
+  Collection[] public collections;
+
+  function createCollection(string memory _name, uint256 _cardCount) public {
+    Collection memory newCollection = Collection(_name, _cardCount, address(new CollectionNFT(_name, _cardCount)));
+    collections.push(newCollection);
+    createCollection("Collection1", 3);
   }
+  
+
+  function getCollections() public view returns (Collection[] memory) {
+    return collections;
+  }
+  
+  
 }
+
+
