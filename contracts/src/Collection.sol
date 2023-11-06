@@ -25,6 +25,7 @@ contract CollectionNFT is ERC721 {
     }
   }
 
+
 function mint(address _to, uint256 _id) public {
     _safeMint(_to, _id);
 }
